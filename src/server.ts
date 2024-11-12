@@ -1,8 +1,10 @@
 import express, { Request, Response } from "express";
+import cors from 'cors'
 
 const app = express()
 const PORT = 3001
 app.use(express.json())
+app.use(cors())
 
 app.get('/proxy', async (req: Request, res: Response) => {
     const { url } = req.query
@@ -35,8 +37,10 @@ app.listen(PORT, () => {
     console.log(`API rodando em http://localhost:${PORT}`)
 })
 
-//esse código está funcionando para fazer fetch da API jsonplaceholder, que o professor usou como exemplo pra teste na aula
-//mas não está funcionando para fazer fetch da API infodengue, para realizar uma consulta:
+//como as urls da api infodengue usam &, a API só vai receber como a variável url o que estiver antes do primeiro &, tudo o que vem depois
+//é armazenado dentro de novas variáveis para cada &, como solução, deve-se codificar o url no frontend
+//antes de mandá-lo para a API usando encodeURIComponent(url)
+//para realizar uma consulta:
 //npm i
 //npm run dev
 // accessar http://localhost:3001/proxy/?url= insira a url da api aqui
