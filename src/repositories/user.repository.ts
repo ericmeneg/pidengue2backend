@@ -1,8 +1,9 @@
+import { createUserDTO } from '../dtos/user.dto'
 import User from '../entities/user.entity'
-import createUserDTO from '../DTOs/createUserDTO'
 
 export const  createUser = async (data: createUserDTO) => {
-    return User.create({data})
+    const newUser = await User.create({ data })
+    return { ...newUser, password: undefined}
 }
 
 export const findAllUsers = async () => {
